@@ -43,7 +43,7 @@ def cargar_datos():
     })
 
     repuestos = pd.DataFrame([
-        {"id": 1, "nombre": "Filtro Aceite Motor", "activo": "Camión", "stock": 40, "min": 8},
+        {"id": 1, "nombre": "Filtro Aceite Motor", "activo": "Camión", "stock": 40, "stock_minimo": 8},
         {"id": 2, "nombre": "Pastillas de Freno", "activo": "Camión", "stock": 25, "min": 10},
         {"id": 3, "nombre": "Filtro Aire Thermo King", "activo": "Thermo King", "stock": 18, "min": 6},
         {"id": 4, "nombre": "Sensor de Temperatura", "activo": "Thermo King", "stock": 10, "min": 4},
@@ -64,7 +64,8 @@ vehiculos, equipos, repuestos, ordenes = cargar_datos()
 # --------------------------------------------------
 disp_veh = round((vehiculos[vehiculos.estado == "Operativo"].shape[0] / len(vehiculos)) * 100, 1)
 disp_eq = round((equipos[equipos.estado == "Operativo"].shape[0] / len(equipos)) * 100, 1)
-disp_rep = round((repuestos[repuestos.stock > repuestos.min].shape[0] / len(repuestos)) * 100, 1)
+disp_rep = round((repuestos[repuestos["stock"] > repuestos["stock_minimo"]].shape[0] / len(repuestos)) * 100, 1)
+
 
 # MTBF / MTTR
 fallas = ordenes[ordenes["tipo"] == "Correctivo"]
